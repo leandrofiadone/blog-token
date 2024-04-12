@@ -1,94 +1,75 @@
 ---
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
+import BaseLayout from "../layouts/BaseLayout.astro"
 
-const pageTitle = "Sobre mi";
+const pageTitle = "About Me"
+const happy = true
+const finished = true
+const goal = 3
 
 const identity = {
-    firstName: "Sarah",
-    country: "Canada",
-    occupation: "Escritor técnico",
-    hobbies: ["fotografia", "observación de aves", "peñarol"],
-    };
+  firstName: "Leandro",
+  country: "Argentina",
+  occupation: "Fullstack Developer",
+  hobbies: ["photography", "gym", "yoga"]
+}
 
-    const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Redacción de documentos"];
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"]
 
-    const happy = true;
-    const finished = false;
-    const goal = 3;
-
-    const skillColor = "navy";
-    const fontWeight = "bold";
-    const textCase = "uppercase";
-
+const skillColor = "navy"
+const fontWeight = "bold"
+const textCase = "uppercase"
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
-            <style define:vars={{skillColor, fontWeight, textCase}}>
-                h1 {
-                    color: purple;
-                    font-size: 4rem;
-                }
-                .skill {
-                    color: var(--skillColor);
-                    font-weight: var(--fontWeight);
-                    text-transform: var(--textCase);
-                }
-            </style>
-    </head>
-    <> 
-        <a href="/">Inicio</a>
-        <a href="/about/">Sobre mi</a>
+<style define:vars={{skillColor, fontWeight, textCase}}>
+  h1 {
+    color: purple;
+    font-size: 4rem;
+  }
+  .skill {
+    color: var(--skillColor);
+    font-weight: var(--fontWeight);
+    text-transform: var(--textCase);
+  }
+</style>
 
-        <h1>{pageTitle}</h1>
-        <h2>... ¡y mi nuevo sitio Astro!</h2>
-        <h1>Mi sitio Astro</h1>
-        <h1>Sobre mi</h1>
-        <h2>... ¡y mi nuevo sitio Astro!</h2>
+<BaseLayout pageTitle={pageTitle}>
+  <h2>... and my new Astro site!</h2>
 
-            <p>
-                Estoy trabajando en el tutorial introductorio de Astro. Esta es la
-                segunda página de mi sitio web, ¡y es la primera que he construido yo
-                mismo!
-            </p>
+  <p>
+    I am working through Astro's introductory tutorial. This is the second page
+    on my website, and it's the first one I built myself!
+  </p>
 
-            <p>
-                Este sitio se irá actualizando a medida que vaya completando más partes
-                del tutorial, ¡así que no dejes de visitarlo para ver cómo va mi viaje!
-            </p>
+  <p>
+    This site will update as I complete more of the tutorial, so keep checking
+    back and see how my journey is going!
+  </p>
 
-            <p>He aquí algunos datos sobre mí:</p>
+  {happy && <p>I am happy to be learning Astro!</p>}
 
-                <ul>
-                    <li>Me llamo {identity.firstName}.</li>
-                    <li>Vivo en {identity.country} y trabajo como {identity.occupation}.</li>
-                    
-                    {identity.hobbies.length >= 2 &&
-                        <li>Dos de mis aficiones son: {identity.hobbies[0]} y {identity.hobbies[1]}</li>
-                    }
-                </ul>
+  {finished && <p>I finished this tutorial!</p>}
 
-            <p>Mis habilidades son:</p>
+  {
+    goal === 3 ? (
+      <p>My goal is to finish in 3 days.</p>
+    ) : (
+      <p>My goal is not 3 days.</p>
+    )
+  }
 
-                <ul>
-                {skills.map((skill) => <li class="skill">{skill}</li>)}
-                </ul>
-
-                {happy && <p>¡Estoy feliz de aprender Astro!</p>}
-
-                {finished && <p>¡He terminado este tutorial!</p>}
-
-                {goal === 3 ? <p>Mi objetivo es terminar en 3 días.</p> : <p>Mi objetivo no son 3 días.</p>}
-        
-        <Footer />
-          <script>
-			import "../scripts/menu.js";
-  		  </script>
-    </body>
-</html>
+  <p>Here are a few facts about me:</p>
+  <ul>
+    <li>My name is {identity.firstName}.</li>
+    <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
+    {
+      identity.hobbies.length >= 2 && (
+        <li>
+          Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}
+        </li>
+      )
+    }
+  </ul>
+  <p>My skills are:</p><p></p><ul>
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+</BaseLayout>
